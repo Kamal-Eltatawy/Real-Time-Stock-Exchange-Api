@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Real_Time_Stock_Exchange.Middleware;
 using System.Text;
 
 namespace Real_Time_Stock_Exchange
@@ -64,6 +65,17 @@ namespace Real_Time_Stock_Exchange
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
                 };
             });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                               .AllowAnyHeader()
+                               .AllowAnyMethod()
+                               .AllowCredentials();
+                    });
+            });
             builder.Services.AddScoped<IAuthServices, AuthServices>();
 
             builder.Services.AddScoped<ITokkenServices, TokkenServices>();
@@ -72,6 +84,8 @@ namespace Real_Time_Stock_Exchange
             builder.Services.AddScoped(typeof(IStockService), typeof(StockService));
             builder.Services.AddScoped(typeof(IHistoricalStockServices), typeof(HistoricalStockServices));
             builder.Services.AddScoped(typeof(IOrderServices), typeof(OrderServices));
+            builder.Services.AddTransient<ExceptionMiddleware>();
+
 
             builder.Services.AddSignalR();
 
@@ -85,9 +99,13 @@ namespace Real_Time_Stock_Exchange
             }
 
             app.UseHttpsRedirection();
+            app.UseRouting();
+            
 
+            app.UseCors("AllowSpecificOrigin");
             app.UseAuthorization();
-         
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.MapControllers();
 

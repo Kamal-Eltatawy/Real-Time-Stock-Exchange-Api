@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using ApplicationService.Services.StockServices;
+using AutoMapper;
 using Domain.DTO;
 using Domain.Entities;
 using DomainServices.Repository;
@@ -17,18 +18,33 @@ namespace ApplicationService.Services.OrderServices
         private IRepository<Order> orderRepository;
         private IRepository<OrderStocks> orderStocksRepository;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IStockService stockService;
 
-        public OrderServices(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public OrderServices(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor, IStockService stockService)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.httpContextAccessor = httpContextAccessor;
+            this.stockService = stockService;
             orderRepository = unitOfWork.GetRepository<Order>();
             orderStocksRepository = unitOfWork.GetRepository<OrderStocks>();
         }
 
         public async Task<OrderCreationResponseDTO> CreateAsync(OrderRequestDTO orderRequestDTO)
         {
+            if (!await stockService.AnyAsync(i => i.Symbol == orderRequestDTO.Symbol))
+            {
+                return new OrderCreationResponseDTO
+                {
+                    IsSuccess = false,
+                    Message = "Stock Symbol IS Not Exsists ",
+                    OrderID = 0,
+                    Quantity = orderRequestDTO.Quantity,
+                    Symbol = orderRequestDTO.Symbol,
+                    Type = orderRequestDTO.Type.ToString(),
+                };
+            }
+
             var order = mapper.Map<Order>(orderRequestDTO);
             order.UserId = httpContextAccessor?.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
@@ -73,7 +89,7 @@ namespace ApplicationService.Services.OrderServices
             ));
         }
 
-       
+
     }
 
 }

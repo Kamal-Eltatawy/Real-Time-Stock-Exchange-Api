@@ -14,7 +14,7 @@ namespace ApplicationService.Services.StockServices
         private readonly IMapper mapper;
         private IRepository<Stock> stockRepository;
 
-        public StockService(IUnitOfWork unitOfWork, IMapper mapper)
+        public StockService(IUnitOfWork unitOfWork, IMapper mapper )
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -38,6 +38,7 @@ namespace ApplicationService.Services.StockServices
             return mapper.Map<List<StockResponseDTO>>(await stockRepository.GetAllByAsync(expression));
         }
 
-        
+
+
     }
 }
