@@ -23,7 +23,7 @@ Presentation Layer: Consists of controllers for handling incoming HTTP requests 
 Getting Started
 To get started with the project, follow these steps:
 
-Clone the repository: git clone https://github.com/Kamal-eltatawt/Real-Time-Stock-Exchange-Api.git
+Clone the repository: git clone https://github.com/Kamal-eltatawy/Real-Time-Stock-Exchange-Api.git
 Navigate to the project directory: cd real-time-stock-exchange-api
 Restore dependencies: dotnet restore
 Configure your database connection in appsettings.json
