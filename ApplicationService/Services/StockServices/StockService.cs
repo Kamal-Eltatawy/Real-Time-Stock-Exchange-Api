@@ -5,6 +5,7 @@ using Domain.Entities;
 using DomainServices.Repository;
 using DomainServices.Services.UnitOfWork;
 using System.Linq.Expressions;
+using Microsoft.AspNet.SignalR;
 
 namespace ApplicationService.Services.StockServices
 {
@@ -14,7 +15,7 @@ namespace ApplicationService.Services.StockServices
         private readonly IMapper mapper;
         private IRepository<Stock> stockRepository;
 
-        public StockService(IUnitOfWork unitOfWork, IMapper mapper )
+        public StockService(IUnitOfWork unitOfWork, IMapper mapper /*, IHubContext<StockTickerHub> hubContext*/)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
