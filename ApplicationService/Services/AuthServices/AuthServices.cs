@@ -51,6 +51,7 @@ namespace ApplicationService.Services.AuthServices
                 ExpireDate = DateTime.Today.AddDays(Convert.ToDouble(configuration["JWT:DurationInDays"])),
                 IsAuthenticated = true,
                 Message = "Logged In",
+                UserID = user.Id,
                 Roles = userManager.GetRolesAsync(user).Result.ToList(),
                 Tokken = tokkenServices.CreateJwtToken(user).Result
 

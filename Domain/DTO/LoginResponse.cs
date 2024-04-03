@@ -9,6 +9,8 @@
 
         public List<string> Roles { get; set; }
 
+        public string UserID { get; set; }
+
         public DateTime ExpireDate { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using ApplicationService.Services.OrderServices;
 using Domain.DTO;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 
 namespace Real_Time_Stock_Exchange.Controllers
@@ -37,7 +39,9 @@ namespace Real_Time_Stock_Exchange.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<OrderDataResponseDTO>>> GetOrderHistory()
+
         {
+
             return await orderServices.GetAllOrderAsync();
 
         }

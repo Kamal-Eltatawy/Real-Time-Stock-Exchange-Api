@@ -8,5 +8,6 @@
         public string StockName { get; set; }
 
         public string Symbol { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

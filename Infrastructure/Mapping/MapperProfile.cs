@@ -31,6 +31,7 @@ namespace Infrastructure.Mapping
           .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
           .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Order.Type))
           .ForMember(dest => dest.StockName, opt => opt.MapFrom(src => src.Stock.Name))
+          .ForMember(dest => dest.TimeStamp, opt => opt.MapFrom(src => src.Stock.TimeStamp))
 
               .ReverseMap();
 

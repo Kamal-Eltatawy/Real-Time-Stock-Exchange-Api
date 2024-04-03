@@ -12,6 +12,7 @@ namespace Domain.DTO
         [OrderTypeValidation]
         public string Type { get; set; } 
         [Required]
+        [GreaterThanZero(ErrorMessage = "Quantity must be greater than 0")]
         public int Quantity { get; set; }
         [Required(ErrorMessage = "Symbol Cant be Empity"), StringLength(maximumLength: 10, MinimumLength = 2, ErrorMessage = "Symbol cant be less than 2 chars and more than 10 char")]
         public string Symbol { get; set; }

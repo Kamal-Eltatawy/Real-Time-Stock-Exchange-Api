@@ -46,7 +46,8 @@ namespace ApplicationService.Services.OrderServices
             }
 
             var order = mapper.Map<Order>(orderRequestDTO);
-            order.UserId = httpContextAccessor?.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            order.UserId = "be9a357a-c31b-4c59-8560-314aa5ac5dc9";
+            //order.UserId = httpContextAccessor?.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
             var orderStocks = mapper.Map<OrderStocks>(orderRequestDTO);
 
@@ -83,10 +84,13 @@ namespace ApplicationService.Services.OrderServices
 
         public async Task<List<OrderDataResponseDTO>> GetAllOrderAsync()
         {
-            return mapper.Map<List<OrderDataResponseDTO>>(await orderStocksRepository.GetAllIncludingAsync(
+            var userId = "be9a357a-c31b-4c59-8560-314aa5ac5dc9";
+            //var userId = httpContextAccessor?.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            return mapper.Map<List<OrderDataResponseDTO>>(orderStocksRepository.GetAllIncludingAsync(
                 i => i.Order,
                 i => i.Stock
-            ));
+            ).Result.Where(i => i.Order.UserId == userId));
         }
 
 
