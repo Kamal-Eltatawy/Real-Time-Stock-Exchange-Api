@@ -1,6 +1,7 @@
 ﻿using ApplicationService.Services.HistoricalServices;
 using ApplicationService.Services.StockServices;
 using Domain.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace Real_Time_Stock_Exchange.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StocksController : ControllerBase
     {
         private readonly IStockService stockService;

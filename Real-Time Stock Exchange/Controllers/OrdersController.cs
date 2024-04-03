@@ -11,6 +11,7 @@ namespace Real_Time_Stock_Exchange.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderServices orderServices;
