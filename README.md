@@ -8,11 +8,15 @@ The backend of this project is developed using the following technologies:
 ASP.NET Core Web API: ASP.NET Core is a cross-platform, high-performance framework for building web APIs.
 Entity Framework Core: Entity Framework Core is used for data access and database management.
 Swagger: Swagger is integrated to provide API documentation and testing capabilities.
-Design Patterns
+Design Patterns.
+
+
 The project utilizes several design patterns to maintain code quality and scalability:
 
 Repository Pattern: The repository pattern is employed to abstract away data access logic and provide a consistent interface for accessing data.
+
 Dependency Injection (DI): Dependency Injection is used to promote loose coupling and facilitate unit testing by injecting dependencies into classes rather than hardcoding them.
+
 Clean Architecture
 The project follows the principles of Clean Architecture to achieve separation of concerns and maintainability:
 
